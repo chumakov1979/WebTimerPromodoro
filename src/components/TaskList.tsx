@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Plus, Check, Trash2, Crown, Mic, Music, Disc } from 'lucide-react';
+import { Plus, Check, Trash2, Music, Disc } from 'lucide-react';
 import { Task } from '../types';
 
 interface TaskListProps {
@@ -52,15 +52,15 @@ export const TaskList: React.FC<TaskListProps> = ({
   return (
     <div className="w-full max-w-xl mx-auto px-4 py-6">
       {/* Setlist Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-amber-500/25">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b-2 border-neutral-900">
         <div>
           <div className="flex items-center gap-2">
-            <Music className="w-5 h-5 text-amber-400" />
-            <h2 className="text-xl font-bold font-cinzel tracking-wider text-white">
+            <Music className="w-5 h-5 text-neutral-900 stroke-[2.5]" />
+            <h2 className="text-2xl font-bebas tracking-wider text-neutral-900 uppercase">
               Концертный сет-лист
             </h2>
           </div>
-          <div className="flex items-center gap-2 text-xs text-amber-300/70 mt-1 font-cinzel">
+          <div className="flex items-center gap-2 text-xs text-neutral-700 mt-0.5 font-oswald font-semibold uppercase">
             <span>{completedCount} из {tasks.length} партий исполнено</span>
             <span aria-hidden="true">·</span>
             <span>{totalCompletedPomos}/{totalEst} 👑 актов</span>
@@ -68,33 +68,33 @@ export const TaskList: React.FC<TaskListProps> = ({
         </div>
 
         {/* Filter buttons */}
-        <div className="flex items-center gap-1 bg-[#120819] p-1 rounded-xl border border-amber-500/30 self-start sm:self-auto">
+        <div className="flex items-center gap-1 bg-white p-1 rounded-lg border-2 border-neutral-900 poster-shadow-sm self-start sm:self-auto">
           <button
             onClick={() => setFilter('all')}
-            className={`px-3 py-1 text-xs font-cinzel font-medium rounded-lg transition-colors ${
+            className={`px-3 py-1 font-bebas text-sm uppercase tracking-wider rounded transition-colors ${
               filter === 'all'
-                ? 'bg-amber-500/25 text-amber-200 border border-amber-500/40 shadow-sm'
-                : 'text-neutral-400 hover:text-amber-200'
+                ? 'bg-[#ffd000] text-neutral-900 border border-neutral-900 font-bold'
+                : 'text-neutral-700 hover:text-neutral-900'
             }`}
           >
             Все
           </button>
           <button
             onClick={() => setFilter('active')}
-            className={`px-3 py-1 text-xs font-cinzel font-medium rounded-lg transition-colors ${
+            className={`px-3 py-1 font-bebas text-sm uppercase tracking-wider rounded transition-colors ${
               filter === 'active'
-                ? 'bg-amber-500/25 text-amber-200 border border-amber-500/40 shadow-sm'
-                : 'text-neutral-400 hover:text-amber-200'
+                ? 'bg-[#ffd000] text-neutral-900 border border-neutral-900 font-bold'
+                : 'text-neutral-700 hover:text-neutral-900'
             }`}
           >
             На сцене
           </button>
           <button
             onClick={() => setFilter('completed')}
-            className={`px-3 py-1 text-xs font-cinzel font-medium rounded-lg transition-colors ${
+            className={`px-3 py-1 font-bebas text-sm uppercase tracking-wider rounded transition-colors ${
               filter === 'completed'
-                ? 'bg-amber-500/25 text-amber-200 border border-amber-500/40 shadow-sm'
-                : 'text-neutral-400 hover:text-amber-200'
+                ? 'bg-[#ffd000] text-neutral-900 border border-neutral-900 font-bold'
+                : 'text-neutral-700 hover:text-neutral-900'
             }`}
           >
             Бис
@@ -107,7 +107,7 @@ export const TaskList: React.FC<TaskListProps> = ({
         {isAdding ? (
           <form
             onSubmit={handleSubmit}
-            className="p-5 rounded-2xl bg-[#120819] border border-amber-500/40 shadow-2xl shadow-black/60 transition-all"
+            className="p-5 rounded-xl bg-white border-2 border-neutral-900 poster-shadow transition-all"
           >
             <input
               type="text"
@@ -115,28 +115,28 @@ export const TaskList: React.FC<TaskListProps> = ({
               value={newTitle}
               onChange={(e) => setNewTitle(e.target.value)}
               autoFocus
-              className="w-full px-3.5 py-2.5 bg-[#09040d] border border-amber-500/30 rounded-xl text-sm text-white placeholder-neutral-500 focus:outline-none focus:border-amber-400 mb-3.5 font-cinzel"
+              className="w-full px-3.5 py-2.5 bg-neutral-50 border-2 border-neutral-900 rounded-lg text-sm text-neutral-900 placeholder-neutral-400 focus:outline-none focus:bg-white mb-3.5 font-oswald font-semibold uppercase"
             />
 
             <div className="flex items-center justify-between gap-3 mb-3.5">
-              <span className="text-xs font-cinzel text-amber-300/80">
+              <span className="text-xs font-oswald font-bold uppercase text-neutral-800">
                 Сколько актов (25м) потребуется?
               </span>
               <div className="flex items-center gap-2">
                 <button
                   type="button"
                   onClick={() => setNewEst(Math.max(1, newEst - 1))}
-                  className="w-7 h-7 rounded-lg bg-neutral-800 text-amber-300 hover:bg-neutral-700 flex items-center justify-center font-bold"
+                  className="w-8 h-8 rounded-lg bg-neutral-100 border border-neutral-900 text-neutral-900 hover:bg-[#ffd000] flex items-center justify-center font-bold"
                 >
                   -
                 </button>
-                <span className="font-mono text-sm font-bold text-amber-400 w-6 text-center">
+                <span className="font-mono text-base font-bold text-neutral-900 w-6 text-center">
                   {newEst}
                 </span>
                 <button
                   type="button"
                   onClick={() => setNewEst(Math.min(10, newEst + 1))}
-                  className="w-7 h-7 rounded-lg bg-neutral-800 text-amber-300 hover:bg-neutral-700 flex items-center justify-center font-bold"
+                  className="w-8 h-8 rounded-lg bg-neutral-100 border border-neutral-900 text-neutral-900 hover:bg-[#ffd000] flex items-center justify-center font-bold"
                 >
                   +
                 </button>
@@ -148,20 +148,20 @@ export const TaskList: React.FC<TaskListProps> = ({
               value={newNotes}
               onChange={(e) => setNewNotes(e.target.value)}
               rows={2}
-              className="w-full px-3.5 py-2 bg-[#09040d] border border-amber-500/30 rounded-xl text-xs text-white placeholder-neutral-500 focus:outline-none focus:border-amber-400 mb-4 resize-none"
+              className="w-full px-3.5 py-2 bg-neutral-50 border-2 border-neutral-900 rounded-lg text-xs text-neutral-800 placeholder-neutral-400 focus:outline-none focus:bg-white mb-4 resize-none"
             />
 
             <div className="flex items-center justify-end gap-2.5">
               <button
                 type="button"
                 onClick={() => setIsAdding(false)}
-                className="px-3.5 py-1.5 text-xs text-neutral-400 hover:text-white rounded-lg transition-colors cursor-pointer"
+                className="px-3.5 py-1.5 text-xs font-oswald font-bold uppercase text-neutral-700 hover:text-neutral-900 rounded-lg transition-colors cursor-pointer"
               >
                 Отмена
               </button>
               <button
                 type="submit"
-                className="px-4 py-1.5 text-xs font-cinzel font-bold text-black bg-gradient-to-r from-amber-400 to-amber-500 hover:brightness-110 rounded-lg shadow-md shadow-amber-500/20 transition-all cursor-pointer"
+                className="px-5 py-2 text-sm font-bebas tracking-wider text-neutral-950 bg-[#ffd000] hover:bg-[#ffdc2e] border-2 border-neutral-900 rounded-lg poster-shadow-sm transition-all cursor-pointer font-bold"
               >
                 Внести в сет-лист
               </button>
@@ -170,26 +170,26 @@ export const TaskList: React.FC<TaskListProps> = ({
         ) : (
           <button
             onClick={() => setIsAdding(true)}
-            className="w-full py-3.5 px-4 rounded-2xl border border-dashed border-amber-500/30 hover:border-amber-500/60 bg-[#120819]/50 hover:bg-[#120819] text-xs font-cinzel font-bold tracking-wider text-amber-300/80 hover:text-amber-200 flex items-center justify-center gap-2 transition-all cursor-pointer"
+            className="w-full py-3.5 px-4 rounded-xl border-2 border-dashed border-neutral-900 bg-white hover:bg-[#ffd000]/20 text-sm font-bebas tracking-wider text-neutral-900 flex items-center justify-center gap-2 transition-all cursor-pointer"
           >
-            <Plus className="w-4 h-4 text-amber-400" />
+            <Plus className="w-5 h-5 text-neutral-900 stroke-[3]" />
             <span>+ Добавить новый номер в сет-лист</span>
           </button>
         )}
       </div>
 
       {/* Task List Items */}
-      <div className="space-y-2.5">
+      <div className="space-y-3">
         {filteredTasks.length === 0 ? (
-          <div className="text-center py-12 px-4 rounded-2xl border border-amber-500/20 bg-[#120819]/40">
-            <Disc className="w-8 h-8 text-amber-500/40 mx-auto mb-2.5 animate-spin" style={{ animationDuration: '16s' }} />
-            <p className="text-sm font-cinzel font-semibold text-amber-200">
+          <div className="text-center py-12 px-4 rounded-xl border-2 border-neutral-900 bg-white poster-shadow-sm">
+            <Disc className="w-8 h-8 text-neutral-400 mx-auto mb-2.5 animate-spin" style={{ animationDuration: '16s' }} />
+            <p className="font-bebas text-lg tracking-wider text-neutral-900 uppercase">
               {filter === 'completed'
                 ? 'Пока нет завершённых номеров'
                 : 'Сет-лист пуст. Внесите первую партию!'}
             </p>
-            <p className="text-xs text-amber-400/60 mt-1 font-playfair italic">
-              «Show must go on — ни шагу назад на сцене!»
+            <p className="text-xs text-neutral-600 mt-1 font-oswald font-semibold uppercase">
+              «The Show Must Go On — на сцене до конца!»
             </p>
           </div>
         ) : (
@@ -198,35 +198,33 @@ export const TaskList: React.FC<TaskListProps> = ({
             return (
               <div
                 key={task.id}
-                className={`group p-4 rounded-2xl border transition-all ${
+                className={`group p-4 rounded-xl border-2 border-neutral-900 transition-all ${
                   isActive
-                    ? 'bg-[#150a1f] border-amber-400/80 shadow-lg shadow-amber-500/20 ring-1 ring-amber-400/40'
+                    ? 'bg-[#ffd000]/30 poster-shadow ring-2 ring-[#ffd000]'
                     : task.completed
-                    ? 'bg-[#0d0714]/60 border-neutral-900 opacity-60'
-                    : 'bg-[#120819]/70 border-amber-500/20 hover:border-amber-500/40 hover:bg-[#120819]'
+                    ? 'bg-neutral-100 opacity-60'
+                    : 'bg-white hover:bg-neutral-50 poster-shadow-sm'
                 }`}
               >
                 <div className="flex items-start justify-between gap-3">
                   {/* Complete Checkbox */}
                   <button
                     onClick={() => onToggleTaskComplete(task.id)}
-                    className={`mt-0.5 w-5 h-5 rounded-lg flex items-center justify-center transition-all cursor-pointer shrink-0 ${
-                      task.completed
-                        ? 'bg-amber-400 text-black shadow-sm shadow-amber-400/50'
-                        : 'border border-amber-500/40 hover:border-amber-300'
+                    className={`mt-0.5 w-6 h-6 rounded-md border-2 border-neutral-900 flex items-center justify-center transition-all cursor-pointer shrink-0 ${
+                      task.completed ? 'bg-[#ffd000] text-neutral-900' : 'bg-white'
                     }`}
                   >
-                    {task.completed && <Check className="w-3.5 h-3.5 stroke-[3]" />}
+                    {task.completed && <Check className="w-4 h-4 stroke-[3.5]" />}
                   </button>
 
                   {/* Title and Notes */}
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2">
                       <span
-                        className={`text-sm font-cinzel font-semibold leading-snug break-words ${
+                        className={`text-base font-oswald font-bold leading-snug break-words uppercase ${
                           task.completed
                             ? 'line-through text-neutral-400'
-                            : 'text-neutral-100'
+                            : 'text-neutral-900'
                         }`}
                       >
                         {task.title}
@@ -234,7 +232,7 @@ export const TaskList: React.FC<TaskListProps> = ({
                     </div>
 
                     {task.notes && (
-                      <p className="text-xs font-playfair italic text-amber-200/60 mt-1 line-clamp-2">
+                      <p className="text-xs text-neutral-600 mt-1 line-clamp-2 font-medium">
                         {task.notes}
                       </p>
                     )}
@@ -244,30 +242,30 @@ export const TaskList: React.FC<TaskListProps> = ({
                       {!task.completed && (
                         <button
                           onClick={() => onSelectActiveTask(isActive ? null : task.id)}
-                          className={`text-xs font-cinzel px-2.5 py-0.5 rounded-md transition-all cursor-pointer ${
+                          className={`text-xs font-bebas tracking-wide px-3 py-1 rounded transition-all cursor-pointer border border-neutral-900 ${
                             isActive
-                              ? 'bg-amber-400 text-black font-bold shadow-sm shadow-amber-400/40'
-                              : 'text-amber-300/70 hover:text-amber-200 hover:bg-amber-500/10 border border-amber-500/30'
+                              ? 'bg-[#ffd000] text-neutral-950 font-bold'
+                              : 'text-neutral-900 hover:bg-[#ffd000] bg-white'
                           }`}
                         >
                           {isActive ? '✓ На сцене' : 'Вывести на сцену'}
                         </button>
                       )}
 
-                      <div className="flex items-center gap-1.5 text-xs text-amber-300/80 font-mono">
+                      <div className="flex items-center gap-1.5 text-xs text-neutral-800 font-mono">
                         <button
                           onClick={() => onUpdatePomodoroCount(task.id, -1)}
                           disabled={task.completedPomodoros <= 0}
-                          className="w-5 h-5 rounded hover:bg-neutral-800 flex items-center justify-center disabled:opacity-30"
+                          className="w-6 h-6 rounded border border-neutral-400 hover:bg-neutral-200 flex items-center justify-center disabled:opacity-30"
                         >
                           -
                         </button>
-                        <span className="font-bold text-amber-300">
+                        <span className="font-bold text-neutral-900">
                           {task.completedPomodoros}/{task.estPomodoros} 👑
                         </span>
                         <button
                           onClick={() => onUpdatePomodoroCount(task.id, 1)}
-                          className="w-5 h-5 rounded hover:bg-neutral-800 flex items-center justify-center"
+                          className="w-6 h-6 rounded border border-neutral-400 hover:bg-neutral-200 flex items-center justify-center"
                         >
                           +
                         </button>
@@ -278,7 +276,7 @@ export const TaskList: React.FC<TaskListProps> = ({
                   {/* Delete button */}
                   <button
                     onClick={() => onDeleteTask(task.id)}
-                    className="p-1.5 text-neutral-500 hover:text-rose-400 hover:bg-rose-500/10 rounded-lg transition-colors cursor-pointer shrink-0 opacity-80 group-hover:opacity-100"
+                    className="p-1.5 text-neutral-400 hover:text-[#dc2626] hover:bg-red-50 rounded-lg transition-colors cursor-pointer shrink-0 opacity-80 group-hover:opacity-100"
                     title="Удалить из сет-листа"
                   >
                     <Trash2 className="w-4 h-4" />
@@ -295,7 +293,7 @@ export const TaskList: React.FC<TaskListProps> = ({
         <div className="mt-5 flex justify-end">
           <button
             onClick={onClearCompleted}
-            className="text-xs font-cinzel text-neutral-400 hover:text-amber-300 transition-colors"
+            className="text-xs font-oswald font-bold uppercase text-neutral-600 hover:text-[#dc2626] transition-colors"
           >
             Очистить исполненные ({completedCount})
           </button>

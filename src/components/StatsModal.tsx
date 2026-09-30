@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, Flame, Clock, Trophy, Calendar, CheckCircle2, Trash2, Crown, Sparkles } from 'lucide-react';
+import { X, Flame, Calendar, Trash2, Crown, Sparkles, Trophy } from 'lucide-react';
 import { DailyStat, SessionRecord } from '../types';
 
 interface StatsModalProps {
@@ -67,31 +67,31 @@ export const StatsModal: React.FC<StatsModalProps> = ({
     .reverse();
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-200">
       <div
-        className="w-full max-w-xl bg-[#110818] border border-amber-500/40 rounded-3xl shadow-2xl shadow-black overflow-hidden flex flex-col max-h-[90vh]"
+        className="w-full max-w-xl bg-white border-3 border-neutral-900 rounded-2xl poster-shadow overflow-hidden flex flex-col max-h-[90vh]"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-amber-500/25 bg-[#140a1c]">
+        <div className="flex items-center justify-between px-6 py-4 border-b-2 border-neutral-900 bg-[#ffd000]">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-amber-500/20 border border-amber-400/40 flex items-center justify-center text-amber-300">
-              <Trophy className="w-5 h-5" />
+            <div className="w-9 h-9 bg-white border-2 border-neutral-900 rounded-lg flex items-center justify-center text-neutral-950 poster-shadow-sm">
+              <Trophy className="w-5 h-5 stroke-[2.5]" />
             </div>
             <div>
-              <h2 className="font-cinzel text-lg font-bold text-white tracking-wide">
+              <h2 className="font-bebas text-2xl font-black text-neutral-950 tracking-wider uppercase leading-none">
                 Триумф и Зал Славы
               </h2>
-              <span className="text-[10px] font-cinzel text-amber-300/70 tracking-widest uppercase">
-                История великих перформансов
+              <span className="text-[11px] font-oswald text-neutral-800 tracking-wider uppercase font-bold">
+                Хроника лучших перформансов
               </span>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 rounded-lg text-neutral-400 hover:text-white hover:bg-neutral-800 transition-colors cursor-pointer"
+            className="p-1.5 rounded-lg border-2 border-neutral-900 bg-white hover:bg-neutral-100 text-neutral-900 transition-colors cursor-pointer"
           >
-            <X className="w-5 h-5" />
+            <X className="w-5 h-5 stroke-[2.5]" />
           </button>
         </div>
 
@@ -99,60 +99,60 @@ export const StatsModal: React.FC<StatsModalProps> = ({
         <div className="p-6 overflow-y-auto space-y-6">
           {/* Key Metric Cards */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            <div className="p-3.5 rounded-2xl bg-[#09040e] border border-amber-500/20 flex flex-col">
-              <span className="text-[10px] font-cinzel font-bold tracking-wider text-amber-400/70 uppercase mb-1">
+            <div className="p-3.5 rounded-xl bg-neutral-50 border-2 border-neutral-900 flex flex-col">
+              <span className="text-[11px] font-bebas tracking-wider text-neutral-600 uppercase mb-0.5">
                 Сегодня
               </span>
-              <span className="text-xl font-bold font-mono gold-text tabular-nums">
+              <span className="text-2xl font-mono font-black text-neutral-950 tabular-nums">
                 {formatMins(todayStats.focusMinutes)}
               </span>
-              <span className="text-[11px] text-amber-300/80 mt-1 font-cinzel">
+              <span className="text-[11px] text-neutral-800 mt-1 font-oswald font-bold">
                 {todayStats.completedPomodoros} 👑 актов
               </span>
             </div>
 
-            <div className="p-3.5 rounded-2xl bg-[#09040e] border border-amber-500/20 flex flex-col">
-              <span className="text-[10px] font-cinzel font-bold tracking-wider text-amber-400/70 uppercase mb-1">
-                Всего на сцене
+            <div className="p-3.5 rounded-xl bg-neutral-50 border-2 border-neutral-900 flex flex-col">
+              <span className="text-[11px] font-bebas tracking-wider text-neutral-600 uppercase mb-0.5">
+                Всего соло
               </span>
-              <span className="text-xl font-bold font-mono gold-text tabular-nums">
+              <span className="text-2xl font-mono font-black text-neutral-950 tabular-nums">
                 {formatMins(totalFocusMinutes)}
               </span>
-              <span className="text-[11px] text-neutral-400 mt-1 font-cinzel">чистого фокуса</span>
+              <span className="text-[11px] text-neutral-600 mt-1 font-oswald font-semibold">чистого фокуса</span>
             </div>
 
-            <div className="p-3.5 rounded-2xl bg-[#09040e] border border-amber-500/20 flex flex-col">
-              <span className="text-[10px] font-cinzel font-bold tracking-wider text-amber-400/70 uppercase mb-1">
-                Серия шоу
+            <div className="p-3.5 rounded-xl bg-neutral-50 border-2 border-neutral-900 flex flex-col">
+              <span className="text-[11px] font-bebas tracking-wider text-neutral-600 uppercase mb-0.5">
+                Серия дней
               </span>
               <div className="flex items-center gap-1.5">
-                <Flame className="w-4 h-4 text-amber-400 fill-amber-400" />
-                <span className="text-xl font-bold font-mono text-amber-400 tabular-nums">
+                <Flame className="w-5 h-5 text-[#ffd000] fill-[#ffd000] stroke-neutral-900 stroke-[1.5]" />
+                <span className="text-2xl font-mono font-black text-neutral-950 tabular-nums">
                   {streak}
                 </span>
               </div>
-              <span className="text-[11px] text-neutral-400 mt-1 font-cinzel">дней подряд</span>
+              <span className="text-[11px] text-neutral-600 mt-1 font-oswald font-semibold">дней подряд</span>
             </div>
 
-            <div className="p-3.5 rounded-2xl bg-[#09040e] border border-amber-500/20 flex flex-col">
-              <span className="text-[10px] font-cinzel font-bold tracking-wider text-amber-400/70 uppercase mb-1">
+            <div className="p-3.5 rounded-xl bg-neutral-50 border-2 border-neutral-900 flex flex-col">
+              <span className="text-[11px] font-bebas tracking-wider text-neutral-600 uppercase mb-0.5">
                 Оваций 👑
               </span>
-              <span className="text-xl font-bold font-mono gold-text tabular-nums">
+              <span className="text-2xl font-mono font-black text-neutral-950 tabular-nums">
                 {totalPomodoros}
               </span>
-              <span className="text-[11px] text-neutral-400 mt-1 font-cinzel">завершено</span>
+              <span className="text-[11px] text-neutral-600 mt-1 font-oswald font-semibold">завершено</span>
             </div>
           </div>
 
           {/* 7-Day Bar Chart */}
-          <div className="p-5 rounded-2xl bg-[#0a0510] border border-amber-500/25">
+          <div className="p-5 rounded-xl bg-white border-2 border-neutral-900 poster-shadow-sm">
             <div className="flex items-center justify-between mb-4">
-              <span className="text-xs font-cinzel font-bold uppercase tracking-wider text-amber-300 flex items-center gap-1.5">
-                <Calendar className="w-3.5 h-3.5" />
+              <span className="font-bebas text-lg uppercase tracking-wider text-neutral-950 flex items-center gap-1.5">
+                <Calendar className="w-4 h-4 text-neutral-900" />
                 Сценические часы за 7 дней
               </span>
-              <span className="text-xs text-amber-400/80 font-mono">
+              <span className="text-xs text-neutral-700 font-mono font-bold">
                 Пик: {formatMins(maxMins)}
               </span>
             </div>
@@ -163,24 +163,20 @@ export const StatsModal: React.FC<StatsModalProps> = ({
                 const isToday = d.date === todayStr;
                 return (
                   <div key={d.date} className="flex-1 flex flex-col items-center gap-2 h-full justify-end">
-                    <div className="text-[10px] text-amber-300/80 font-mono">
+                    <div className="text-[10px] text-neutral-700 font-mono font-bold">
                       {d.focusMinutes > 0 ? `${d.focusMinutes}м` : ''}
                     </div>
-                    <div className="w-full max-w-[32px] bg-neutral-900 rounded-t-md h-full flex items-end overflow-hidden p-0.5 border-b border-amber-500/40">
+                    <div className="w-full max-w-[34px] bg-neutral-100 rounded-t h-full flex items-end overflow-hidden p-0.5 border-2 border-b-4 border-neutral-900">
                       <div
-                        style={{ height: `${Math.max(d.focusMinutes > 0 ? 8 : 0, heightPercent)}%` }}
-                        className={`w-full rounded-t-sm transition-all duration-500 ${
-                          isToday
-                            ? 'bg-gradient-to-t from-amber-600 via-amber-400 to-yellow-200 shadow-md shadow-amber-400/50'
-                            : d.focusMinutes > 0
-                            ? 'bg-gradient-to-t from-rose-900 to-amber-500/80'
-                            : 'bg-transparent'
+                        style={{ height: `${Math.max(d.focusMinutes > 0 ? 10 : 0, heightPercent)}%` }}
+                        className={`w-full rounded-t transition-all duration-500 ${
+                          isToday ? 'bg-[#ffd000]' : d.focusMinutes > 0 ? 'bg-neutral-900' : 'bg-transparent'
                         }`}
                       />
                     </div>
                     <span
-                      className={`text-[11px] capitalize font-cinzel ${
-                        isToday ? 'text-amber-300 font-bold' : 'text-neutral-500'
+                      className={`text-xs uppercase font-oswald font-bold ${
+                        isToday ? 'text-[#ffd000] bg-neutral-950 px-1 rounded' : 'text-neutral-600'
                       }`}
                     >
                       {getDayName(d.date)}
@@ -194,21 +190,21 @@ export const StatsModal: React.FC<StatsModalProps> = ({
           {/* Recent Performances Log */}
           <div>
             <div className="flex items-center justify-between mb-2">
-              <span className="text-xs font-cinzel font-bold uppercase tracking-wider text-amber-300 flex items-center gap-1.5">
-                <Crown className="w-3.5 h-3.5 text-amber-400" />
+              <span className="font-bebas text-base uppercase tracking-wider text-neutral-950 flex items-center gap-1.5">
+                <Crown className="w-4 h-4 text-neutral-900" />
                 Журнал сыгранных актов
               </span>
-              <span className="text-xs text-neutral-400 font-cinzel">
+              <span className="text-xs text-neutral-600 font-oswald font-semibold uppercase">
                 Показано {recentFocusSessions.length}
               </span>
             </div>
 
             {recentFocusSessions.length === 0 ? (
-              <div className="p-6 text-center rounded-2xl bg-[#09040e] border border-amber-500/20 text-xs text-neutral-400 font-cinzel">
+              <div className="p-6 text-center rounded-xl bg-neutral-50 border-2 border-neutral-900 text-xs text-neutral-600 font-oswald uppercase">
                 Сыгранных актов пока нет. Начните первое шоу!
               </div>
             ) : (
-              <div className="divide-y divide-amber-500/15 rounded-2xl bg-[#09040e] border border-amber-500/20 overflow-hidden">
+              <div className="divide-y-2 divide-neutral-900 rounded-xl bg-white border-2 border-neutral-900 overflow-hidden">
                 {recentFocusSessions.map((session) => {
                   const date = new Date(session.completedAt);
                   const timeStr = date.toLocaleTimeString('ru-RU', {
@@ -223,16 +219,18 @@ export const StatsModal: React.FC<StatsModalProps> = ({
                   return (
                     <div
                       key={session.id}
-                      className="px-4 py-3 flex items-center justify-between text-xs hover:bg-amber-500/5 transition-colors"
+                      className="px-4 py-3 flex items-center justify-between text-xs hover:bg-[#ffd000]/20 transition-colors"
                     >
                       <div className="flex items-center gap-2.5 min-w-0">
-                        <Sparkles className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-                        <span className="text-neutral-200 font-cinzel font-semibold truncate">
+                        <Sparkles className="w-4 h-4 text-[#ffd000] fill-[#ffd000] shrink-0" />
+                        <span className="text-neutral-900 font-oswald font-bold uppercase truncate">
                           {session.taskTitle || 'Соло-перформанс'}
                         </span>
                       </div>
-                      <div className="flex items-center gap-3 shrink-0 text-neutral-400 font-mono">
-                        <span className="text-amber-400 font-bold">+{session.durationMinutes} мин</span>
+                      <div className="flex items-center gap-3 shrink-0 text-neutral-700 font-mono">
+                        <span className="text-neutral-950 font-black bg-[#ffd000] px-1.5 py-0.5 rounded border border-neutral-900">
+                          +{session.durationMinutes} мин
+                        </span>
                         <span>{dateStr}, {timeStr}</span>
                       </div>
                     </div>
@@ -244,21 +242,21 @@ export const StatsModal: React.FC<StatsModalProps> = ({
         </div>
 
         {/* Footer */}
-        <div className="px-6 py-4 border-t border-amber-500/25 bg-[#140a1c] flex items-center justify-between">
+        <div className="px-6 py-4 border-t-2 border-neutral-900 bg-neutral-50 flex items-center justify-between">
           <button
             onClick={() => {
               if (window.confirm('Очистить весь концертный архив сессий?')) {
                 onClearHistory();
               }
             }}
-            className="flex items-center gap-1.5 text-xs font-cinzel text-neutral-500 hover:text-rose-400 transition-colors cursor-pointer"
+            className="flex items-center gap-1.5 text-xs font-oswald font-bold uppercase text-neutral-500 hover:text-[#dc2626] transition-colors cursor-pointer"
           >
-            <Trash2 className="w-3.5 h-3.5" />
+            <Trash2 className="w-4 h-4" />
             <span>Очистить зал славы</span>
           </button>
           <button
             onClick={onClose}
-            className="px-5 py-2 text-xs font-cinzel font-bold text-black bg-gradient-to-r from-amber-400 to-amber-500 hover:brightness-110 rounded-xl transition-all cursor-pointer shadow-md shadow-amber-500/20"
+            className="px-6 py-2 font-bebas text-base tracking-wider text-neutral-950 bg-[#ffd000] hover:bg-[#ffdc2e] border-2 border-neutral-950 rounded-lg poster-shadow-sm transition-all cursor-pointer font-bold"
           >
             Закрыть
           </button>

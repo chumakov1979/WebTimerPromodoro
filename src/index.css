@@ -3,14 +3,15 @@
 @layer base {
   body {
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-    background-color: #08040a;
-    color: #f5f5f5;
+    background-color: #ffffff;
+    color: #111111;
   }
-  .font-cinzel {
-    font-family: 'Cinzel', Georgia, serif;
+  .font-bebas {
+    font-family: 'Bebas Neue', Impact, 'Arial Black', sans-serif;
+    letter-spacing: 0.05em;
   }
-  .font-playfair {
-    font-family: 'Playfair Display', Georgia, serif;
+  .font-oswald {
+    font-family: 'Oswald', sans-serif;
   }
   .font-mono {
     font-family: 'JetBrains Mono', ui-monospace, monospace;
@@ -18,44 +19,30 @@
   }
 }
 
-/* Gold shimmer gradient utility */
-.gold-text {
-  background: linear-gradient(135deg, #fff2a3 0%, #eab308 45%, #ca8a04 70%, #fef08a 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+/* Wembley Yellow Accents */
+.bg-wembley-yellow {
+  background-color: #ffd000;
 }
 
-.gold-border {
-  border-image: linear-gradient(135deg, rgba(234, 179, 8, 0.6), rgba(168, 85, 247, 0.2), rgba(234, 179, 8, 0.4)) 1;
+.text-wembley-yellow {
+  color: #ffd000;
 }
 
-/* Theatrical Spotlight Background Beam */
-.stage-spotlight {
-  background: radial-gradient(
-    ellipse 70% 60% at 50% -10%,
-    rgba(234, 179, 8, 0.18) 0%,
-    rgba(159, 18, 57, 0.12) 40%,
-    rgba(8, 4, 10, 0) 80%
-  );
+.border-wembley-yellow {
+  border-color: #ffd000;
 }
 
-.stage-footlights {
-  background: radial-gradient(
-    ellipse 90% 40% at 50% 110%,
-    rgba(217, 119, 6, 0.12) 0%,
-    rgba(8, 4, 10, 0) 70%
-  );
+/* Poster style solid shadow */
+.poster-shadow {
+  box-shadow: 4px 4px 0px #111111;
 }
 
-/* Vinyl groove lines effect */
-.vinyl-grooves {
-  background: repeating-radial-gradient(
-    circle at center,
-    rgba(255, 255, 255, 0.02) 0px,
-    rgba(255, 255, 255, 0.02) 2px,
-    transparent 3px,
-    transparent 6px
-  );
+.poster-shadow-sm {
+  box-shadow: 2px 2px 0px #111111;
+}
+
+.poster-shadow-yellow {
+  box-shadow: 4px 4px 0px #ffd000;
 }
 
 /* Custom subtle scrollbar */
@@ -64,12 +51,12 @@
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #08040a;
+  background: #ffffff;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(234, 179, 8, 0.25);
+  background: #ffd000;
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(234, 179, 8, 0.45);
+  background: #eab308;
 }

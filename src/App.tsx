@@ -11,6 +11,7 @@ import { AmbientSoundBar } from './components/AmbientSoundBar';
 import { StatsModal } from './components/StatsModal';
 import { SettingsModal } from './components/SettingsModal';
 import { ZenMode } from './components/ZenMode';
+import { FreddieBackground } from './components/FreddieBackground';
 import { AmbientSoundType, SessionRecord, Settings, Task, TimerMode, TimerState } from './types';
 import {
   DEFAULT_SETTINGS,
@@ -353,6 +354,9 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#08040a] text-neutral-100 flex flex-col relative overflow-x-hidden">
+      {/* Freddie Mercury Stage Backdrop */}
+      <FreddieBackground isPlaying={state === 'running'} />
+
       {/* Overhead Stage Spotlight Layer */}
       <div className="fixed top-0 left-1/2 -translate-x-1/2 w-[800px] h-[450px] stage-spotlight pointer-events-none blur-3xl opacity-70" />
 
@@ -417,19 +421,19 @@ export default function App() {
                     <div
                       key={task.id}
                       onClick={() => handleSelectActiveTask(isActive ? null : task.id)}
-                      className={`flex items-center justify-between p-3 rounded-xl border text-xs cursor-pointer transition-all ${
+                      className={`flex items-center justify-between p-3 rounded-lg border-2 border-neutral-900 text-xs cursor-pointer transition-all ${
                         isActive
-                          ? 'bg-amber-500/20 border-amber-400 text-white shadow-md shadow-amber-500/20 ring-1 ring-amber-400/40'
+                          ? 'bg-[#ffd000] text-neutral-950 font-bold poster-shadow-sm'
                           : task.completed
-                          ? 'bg-[#100816]/40 border-neutral-900 line-through text-neutral-400'
-                          : 'bg-[#120819]/60 border-amber-500/20 hover:border-amber-500/40 hover:bg-[#120819] text-neutral-300'
+                          ? 'bg-neutral-100 line-through text-neutral-400'
+                          : 'bg-white hover:bg-neutral-50 text-neutral-900 poster-shadow-sm'
                       }`}
                     >
-                      <span className="truncate mr-3 font-cinzel font-medium">
-                        {isActive && '👑 '}
+                      <span className="truncate mr-3 font-oswald font-bold uppercase">
+                        {isActive && '▶ '}
                         {task.title}
                       </span>
-                      <span className="font-mono text-amber-300/80 shrink-0 font-bold">
+                      <span className="font-mono text-neutral-900 shrink-0 font-black">
                         {task.completedPomodoros}/{task.estPomodoros} 👑
                       </span>
                     </div>
@@ -438,67 +442,69 @@ export default function App() {
               </div>
             </div>
 
-            {/* Queen "The Show Must Go On" Philosophy Card */}
-            <div className="mt-14 pt-8 border-t border-amber-500/20">
-              <div className="max-w-3xl mx-auto rounded-3xl bg-[#110818]/70 border border-amber-500/30 p-6 sm:p-8 backdrop-blur-sm shadow-2xl shadow-black">
+            {/* Queen "The Show Must Go On" Philosophy Card in Rock Poster Style */}
+            <div className="mt-14 pt-8 border-t-2 border-neutral-900">
+              <div className="max-w-3xl mx-auto rounded-2xl bg-white border-3 border-neutral-900 p-6 sm:p-8 poster-shadow">
                 <div className="flex items-center gap-2.5 mb-2">
-                  <Crown className="w-5 h-5 text-amber-400" />
-                  <h3 className="font-cinzel text-base sm:text-lg font-bold text-white tracking-wide">
+                  <div className="w-8 h-8 rounded bg-[#ffd000] border-2 border-neutral-900 flex items-center justify-center font-bebas text-lg font-bold">
+                    Q
+                  </div>
+                  <h3 className="font-bebas text-2xl font-black text-neutral-950 tracking-wider uppercase leading-none">
                     Философия «The Show Must Go On» & Метод Помодоро
                   </h3>
                 </div>
 
-                <p className="font-playfair italic text-xs sm:text-sm text-amber-200/80 mb-6 leading-relaxed">
-                  Когда Фредди Меркьюри записывал легендарную «The Show Must Go On», он был смертельно болен,
-                  но подошёл к микрофону со словами: «I'll fucking do it, darling» — и спел сложнейшую вокальную партию
+                <p className="font-oswald text-xs sm:text-sm text-neutral-700 font-medium mb-6 uppercase tracking-wide leading-relaxed">
+                  Когда Фредди Меркьюри записывал легендарную «The Show Must Go On»,
+                  он подошёл к микрофону со словами: «I'll fucking do it, darling» — и исполнил сложнейшую вокальную партию
                   на одном дыхании. Этот таймер создан для такой же бескомпромиссной страсти к своему делу.
                 </p>
 
                 <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
-                  <div className="p-4 rounded-2xl bg-[#09040e] border border-amber-500/20">
-                    <div className="w-7 h-7 rounded-lg bg-amber-500/20 border border-amber-400/40 text-amber-300 flex items-center justify-center text-xs font-bold font-mono mb-2">
+                  <div className="p-4 rounded-xl bg-neutral-50 border-2 border-neutral-900 poster-shadow-sm">
+                    <div className="w-7 h-7 rounded bg-[#ffd000] border-2 border-neutral-900 text-neutral-950 flex items-center justify-center text-xs font-bold font-mono mb-2">
                       I
                     </div>
-                    <div className="text-xs font-cinzel font-bold text-white mb-1">
+                    <div className="text-sm font-bebas font-bold text-neutral-950 uppercase mb-1">
                       Выход на сцену
                     </div>
-                    <div className="text-[11px] text-neutral-400 leading-normal">
+                    <div className="text-xs text-neutral-600 leading-normal font-medium">
                       Выберите одну главную партию из сет-листа и сосредоточьтесь только на ней.
                     </div>
                   </div>
 
-                  <div className="p-4 rounded-2xl bg-[#09040e] border border-amber-500/20">
-                    <div className="w-7 h-7 rounded-lg bg-amber-500/20 border border-amber-400/40 text-amber-300 flex items-center justify-center text-xs font-bold font-mono mb-2">
+                  <div className="p-4 rounded-xl bg-neutral-50 border-2 border-neutral-900 poster-shadow-sm">
+                    <div className="w-7 h-7 rounded bg-[#ffd000] border-2 border-neutral-900 text-neutral-950 flex items-center justify-center text-xs font-bold font-mono mb-2">
                       II
                     </div>
-                    <div className="text-xs font-cinzel font-bold text-white mb-1">
+                    <div className="text-sm font-bebas font-bold text-neutral-950 uppercase mb-1">
                       Шоу продолжается
                     </div>
-                    <div className="text-[11px] text-neutral-400 leading-normal">
+                    <div className="text-xs text-neutral-600 leading-normal font-medium">
                       25 минут абсолютной концентрации. Без соцсетей и отвлечений: зал затаил дыхание.
                     </div>
                   </div>
 
-                  <div className="p-4 rounded-2xl bg-[#09040e] border border-emerald-500/20">
-                    <div className="w-7 h-7 rounded-lg bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 flex items-center justify-center text-xs font-bold font-mono mb-2">
+                  <div className="p-4 rounded-xl bg-neutral-50 border-2 border-neutral-900 poster-shadow-sm">
+                    <div className="w-7 h-7 rounded bg-[#e11d48] border-2 border-neutral-900 text-white flex items-center justify-center text-xs font-bold font-mono mb-2">
                       III
                     </div>
-                    <div className="text-xs font-cinzel font-bold text-white mb-1">
+                    <div className="text-sm font-bebas font-bold text-neutral-950 uppercase mb-1">
                       Антракт
                     </div>
-                    <div className="text-[11px] text-neutral-400 leading-normal">
+                    <div className="text-xs text-neutral-600 leading-normal font-medium">
                       5 минут отдыха за кулисами: глоток воды, глубокое дыхание и разминка.
                     </div>
                   </div>
 
-                  <div className="p-4 rounded-2xl bg-[#09040e] border border-purple-500/20">
-                    <div className="w-7 h-7 rounded-lg bg-purple-500/20 border border-purple-400/40 text-purple-300 flex items-center justify-center text-xs font-bold font-mono mb-2">
+                  <div className="p-4 rounded-xl bg-neutral-50 border-2 border-neutral-900 poster-shadow-sm">
+                    <div className="w-7 h-7 rounded bg-neutral-900 border-2 border-neutral-900 text-[#ffd000] flex items-center justify-center text-xs font-bold font-mono mb-2">
                       IV
                     </div>
-                    <div className="text-xs font-cinzel font-bold text-white mb-1">
+                    <div className="text-sm font-bebas font-bold text-neutral-950 uppercase mb-1">
                       Гранд-финал
                     </div>
-                    <div className="text-[11px] text-neutral-400 leading-normal">
+                    <div className="text-xs text-neutral-600 leading-normal font-medium">
                       После 4 актов — заслуженный гранд-антракт на 15–30 минут под оглушительные овации.
                     </div>
                   </div>
@@ -535,31 +541,31 @@ export default function App() {
       </main>
 
       {/* Footer */}
-      <footer className="w-full border-t border-amber-500/20 py-6 text-center text-xs text-neutral-400 relative z-10 bg-[#07030b]">
+      <footer className="w-full border-t-2 border-neutral-900 py-6 text-center text-xs text-neutral-700 relative z-10 bg-white">
         <div className="max-w-5xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <div className="flex items-center gap-2 font-cinzel text-amber-300/80">
+          <div className="flex items-center gap-2 font-bebas text-lg text-neutral-950 tracking-wider">
             <span>The Show Must Go On</span>
             <span aria-hidden="true">·</span>
             <span>Queen Productivity Engine</span>
           </div>
-          <div className="flex items-center gap-3 font-cinzel text-xs text-neutral-400">
+          <div className="flex items-center gap-3 font-oswald text-xs font-bold uppercase text-neutral-800">
             <button
               onClick={() => setIsSettingsOpen(true)}
-              className="hover:text-amber-300 transition-colors"
+              className="hover:text-[#ffd000] transition-colors"
             >
               Кулисы
             </button>
             <span aria-hidden="true">·</span>
             <button
               onClick={() => setIsStatsOpen(true)}
-              className="hover:text-amber-300 transition-colors"
+              className="hover:text-[#ffd000] transition-colors"
             >
               Зал славы
             </button>
             <span aria-hidden="true">·</span>
             <button
               onClick={() => setIsZenOpen(true)}
-              className="hover:text-amber-300 transition-colors"
+              className="hover:text-[#ffd000] transition-colors"
             >
               Дзен-сцена
             </button>

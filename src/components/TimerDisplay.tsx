@@ -1,13 +1,13 @@
 import React, { useMemo } from 'react';
-import { Play, Pause, SkipForward, RotateCcw, Plus, Crown, ChevronRight, Mic2, Sparkles } from 'lucide-react';
+import { Play, Pause, SkipForward, RotateCcw, Plus, ChevronRight, Mic2, Sparkles } from 'lucide-react';
 import { TimerMode, TimerState, Task } from '../types';
 
 interface TimerDisplayProps {
   mode: TimerMode;
   state: TimerState;
-  timeLeft: number; // in seconds
-  totalTime: number; // in seconds
-  cycleIndex: number; // 1-based, e.g. 1 to longBreakInterval
+  timeLeft: number;
+  totalTime: number;
+  cycleIndex: number;
   longBreakInterval: number;
   activeTask: Task | null;
   onSelectMode: (mode: TimerMode) => void;
@@ -50,60 +50,44 @@ export const TimerDisplay: React.FC<TimerDisplayProps> = ({
   const circumference = 2 * Math.PI * radius;
   const strokeDashoffset = circumference - progressRatio * circumference;
 
-  // Cycle roman numeral
-  const romanNumerals = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII'];
-  const currentActRoman = romanNumerals[cycleIndex - 1] || `${cycleIndex}`;
-  const totalActsRoman = romanNumerals[longBreakInterval - 1] || `${longBreakInterval}`;
-
-  // Quote
   const quote = useMemo(() => {
     return QUEEN_QUOTES[(cycleIndex - 1) % QUEEN_QUOTES.length];
   }, [cycleIndex]);
 
-  // Mode visual settings
   const modeStyles = {
     focus: {
-      title: 'Перформанс · Фокус',
-      stroke: 'stroke-amber-400',
-      glow: 'shadow-amber-500/30',
-      track: 'stroke-amber-950/40',
-      tag: 'bg-rose-950/70 border-amber-500/40 text-amber-300',
-      buttonBg: 'bg-gradient-to-r from-amber-500 via-amber-400 to-amber-600 text-black hover:brightness-110 shadow-amber-500/30',
+      title: 'ШОУ · ФОКУС',
+      stroke: 'stroke-[#ffd000]',
+      track: 'stroke-neutral-200',
+      activeTab: 'bg-[#ffd000] text-neutral-900 border-2 border-neutral-900 poster-shadow-sm',
       nextLabel: 'Антракт',
     },
     shortBreak: {
-      title: 'Антракт · Перерыв',
-      stroke: 'stroke-emerald-400',
-      glow: 'shadow-emerald-500/30',
-      track: 'stroke-emerald-950/40',
-      tag: 'bg-emerald-950/70 border-emerald-500/40 text-emerald-300',
-      buttonBg: 'bg-gradient-to-r from-emerald-500 via-emerald-400 to-emerald-600 text-black hover:brightness-110 shadow-emerald-500/30',
-      nextLabel: 'Перформанс',
+      title: 'АНТРАКТ · ПЕРЕРЫВ',
+      stroke: 'stroke-[#e11d48]',
+      track: 'stroke-neutral-200',
+      activeTab: 'bg-[#e11d48] text-white border-2 border-neutral-900 poster-shadow-sm',
+      nextLabel: 'Шоу',
     },
     longBreak: {
-      title: 'Гранд-Антракт · Отдых',
-      stroke: 'stroke-purple-400',
-      glow: 'shadow-purple-500/30',
-      track: 'stroke-purple-950/40',
-      tag: 'bg-purple-950/70 border-purple-500/40 text-purple-300',
-      buttonBg: 'bg-gradient-to-r from-purple-500 via-fuchsia-400 to-amber-500 text-black hover:brightness-110 shadow-purple-500/30',
-      nextLabel: 'Перформанс',
+      title: 'ГРАНД-АНТРАКТ · ОТДЫХ',
+      stroke: 'stroke-neutral-900',
+      track: 'stroke-neutral-200',
+      activeTab: 'bg-neutral-900 text-[#ffd000] border-2 border-neutral-900 poster-shadow-sm',
+      nextLabel: 'Шоу',
     },
   }[mode];
 
   return (
     <div className="relative flex flex-col items-center justify-center max-w-xl mx-auto w-full px-4 py-4 sm:py-6">
-      {/* Overhead Stage Spotlight Beam Effect */}
-      <div className="absolute -top-16 left-1/2 -translate-x-1/2 w-96 h-96 stage-spotlight pointer-events-none rounded-full blur-3xl" />
-
-      {/* Mode Selector - Stage Program Tabs */}
-      <div className="relative z-10 flex items-center gap-1.5 p-1.5 bg-[#120819]/90 border border-amber-500/30 rounded-2xl mb-6 shadow-xl shadow-black/50">
+      {/* Mode Selector Tabs in Poster Aesthetic */}
+      <div className="relative z-10 flex items-center gap-2 p-1.5 bg-white border-2 border-neutral-900 rounded-xl mb-6 poster-shadow">
         <button
           onClick={() => onSelectMode('focus')}
-          className={`px-4 py-2 text-xs sm:text-sm font-cinzel font-bold tracking-wider rounded-xl transition-all cursor-pointer ${
+          className={`px-4 py-2 font-bebas text-lg tracking-wider rounded-lg transition-all cursor-pointer ${
             mode === 'focus'
-              ? 'bg-gradient-to-r from-amber-500/30 to-rose-600/30 text-amber-200 border border-amber-400/50 shadow-md shadow-amber-950/50'
-              : 'text-neutral-400 hover:text-amber-200 hover:bg-neutral-900/50'
+              ? modeStyles.activeTab
+              : 'text-neutral-700 hover:text-neutral-900 hover:bg-neutral-100'
           }`}
         >
           Шоу (25м)
@@ -111,10 +95,10 @@ export const TimerDisplay: React.FC<TimerDisplayProps> = ({
 
         <button
           onClick={() => onSelectMode('shortBreak')}
-          className={`px-4 py-2 text-xs sm:text-sm font-cinzel font-bold tracking-wider rounded-xl transition-all cursor-pointer ${
+          className={`px-4 py-2 font-bebas text-lg tracking-wider rounded-lg transition-all cursor-pointer ${
             mode === 'shortBreak'
-              ? 'bg-gradient-to-r from-emerald-500/30 to-teal-600/30 text-emerald-200 border border-emerald-400/50 shadow-md'
-              : 'text-neutral-400 hover:text-emerald-200 hover:bg-neutral-900/50'
+              ? modeStyles.activeTab
+              : 'text-neutral-700 hover:text-neutral-900 hover:bg-neutral-100'
           }`}
         >
           Антракт (5м)
@@ -122,25 +106,23 @@ export const TimerDisplay: React.FC<TimerDisplayProps> = ({
 
         <button
           onClick={() => onSelectMode('longBreak')}
-          className={`px-4 py-2 text-xs sm:text-sm font-cinzel font-bold tracking-wider rounded-xl transition-all cursor-pointer ${
+          className={`px-4 py-2 font-bebas text-lg tracking-wider rounded-lg transition-all cursor-pointer ${
             mode === 'longBreak'
-              ? 'bg-gradient-to-r from-purple-500/30 to-amber-600/30 text-purple-200 border border-purple-400/50 shadow-md'
-              : 'text-neutral-400 hover:text-purple-200 hover:bg-neutral-900/50'
+              ? modeStyles.activeTab
+              : 'text-neutral-700 hover:text-neutral-900 hover:bg-neutral-100'
           }`}
         >
           Гранд-антракт (15м)
         </button>
       </div>
 
-      {/* Main Theatrical Dial - Gold Vinyl Proscenium */}
+      {/* Main Theatrical Dial */}
       <div className="relative z-10 flex items-center justify-center w-[310px] h-[310px] sm:w-[350px] sm:h-[350px] mb-6 select-none">
-        {/* Subtle decorative vinyl disc grooves */}
-        <div className="absolute inset-4 rounded-full vinyl-grooves opacity-30 pointer-events-none" />
-        <div className="absolute inset-2 rounded-full border border-amber-500/20 pointer-events-none" />
-        <div className="absolute inset-0 rounded-full border border-amber-500/10 pointer-events-none" />
+        {/* Dial Center White Card with Solid 3px Black Border & Poster Shadow */}
+        <div className="absolute inset-3 rounded-full bg-white border-3 border-neutral-900 poster-shadow pointer-events-none" />
 
         <svg
-          className="w-full h-full -rotate-90 transform drop-shadow-2xl"
+          className="w-full h-full -rotate-90 transform drop-shadow-sm"
           viewBox="0 0 320 320"
         >
           {/* Background Ring Track */}
@@ -149,37 +131,34 @@ export const TimerDisplay: React.FC<TimerDisplayProps> = ({
             cy="160"
             r={radius}
             className={`fill-none ${modeStyles.track}`}
-            strokeWidth="9"
+            strokeWidth="10"
           />
           {/* Active Glowing Progress Ring */}
           <circle
             cx="160"
             cy="160"
             r={radius}
-            className={`fill-none ${modeStyles.stroke} transition-[stroke-dashoffset] duration-300 ease-linear drop-shadow-[0_0_8px_rgba(234,179,8,0.5)]`}
-            strokeWidth="9"
+            className={`fill-none ${modeStyles.stroke} transition-[stroke-dashoffset] duration-300 ease-linear`}
+            strokeWidth="10"
             strokeDasharray={circumference}
             strokeDashoffset={strokeDashoffset}
             strokeLinecap="round"
           />
         </svg>
 
-        {/* Center Theatrical Stage Info */}
+        {/* Center Content */}
         <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none text-center px-4">
-          {/* Act Badge with Royal Crown */}
-          <div className="flex items-center gap-1.5 mb-1">
-            <Crown className="w-3.5 h-3.5 text-amber-400" />
-            <span className="font-cinzel text-[11px] font-bold uppercase tracking-[0.2em] text-amber-300/90">
-              {modeStyles.title}
-            </span>
+          {/* Mode Pill */}
+          <div className="px-3 py-0.5 rounded-md bg-neutral-900 text-[#ffd000] font-bebas text-sm tracking-wider uppercase mb-1">
+            {modeStyles.title}
           </div>
 
-          {/* Epic Tabular Countdown */}
-          <div className="font-mono text-6xl sm:text-7xl font-bold tracking-tight gold-text tabular-nums drop-shadow-[0_4px_16px_rgba(234,179,8,0.4)] my-0.5">
+          {/* Bold Time Digits */}
+          <div className="font-mono text-6xl sm:text-7xl font-black tracking-tight text-neutral-950 tabular-nums my-0.5">
             {timeFormatted}
           </div>
 
-          {/* Act indicator */}
+          {/* Act indicator dots */}
           <div className="flex items-center gap-2 mt-2">
             {Array.from({ length: longBreakInterval }).map((_, i) => {
               const actNum = i + 1;
@@ -191,25 +170,25 @@ export const TimerDisplay: React.FC<TimerDisplayProps> = ({
                   title={`Акт ${actNum} из ${longBreakInterval}`}
                   className={`transition-all ${
                     isPast
-                      ? 'w-2.5 h-2.5 rounded-full bg-amber-400 shadow-sm shadow-amber-400/50'
+                      ? 'w-3 h-3 rounded-full bg-neutral-900'
                       : isCurrent
-                      ? 'w-3 h-3 rounded-full bg-gradient-to-r from-amber-300 to-rose-500 ring-2 ring-amber-400/80 scale-125 animate-pulse shadow-md shadow-amber-400'
-                      : 'w-2 h-2 rounded-full bg-neutral-800 border border-neutral-700'
+                      ? 'w-3.5 h-3.5 rounded-full bg-[#ffd000] border-2 border-neutral-900 scale-125 animate-pulse'
+                      : 'w-2.5 h-2.5 rounded-full bg-neutral-200 border border-neutral-400'
                   }`}
                 />
               );
             })}
           </div>
 
-          <span className="font-cinzel text-[11px] tracking-[0.18em] text-amber-400/70 mt-1 uppercase">
-            Акт {currentActRoman} из {totalActsRoman}
+          <span className="font-bebas text-sm tracking-wider text-neutral-700 mt-1 uppercase">
+            Акт {cycleIndex} из {longBreakInterval}
           </span>
         </div>
       </div>
 
-      {/* Theatrical Motivational Lyric Quote */}
+      {/* Motivational Lyric Quote */}
       <div className="w-full max-w-md text-center mb-5 px-3">
-        <p className="font-playfair italic text-xs sm:text-[13px] text-amber-200/80 leading-relaxed tracking-wide">
+        <p className="font-oswald text-xs sm:text-sm text-neutral-800 font-semibold uppercase tracking-wide leading-relaxed">
           {quote}
         </p>
       </div>
@@ -217,21 +196,21 @@ export const TimerDisplay: React.FC<TimerDisplayProps> = ({
       {/* Linked Task - Current Scene / Setlist Item */}
       <div className="w-full max-w-md mb-6">
         {activeTask ? (
-          <div className="flex items-center justify-between p-3.5 rounded-xl bg-[#120819]/90 border border-amber-500/30 hover:border-amber-500/60 shadow-lg shadow-black/40 transition-all">
+          <div className="flex items-center justify-between p-3.5 rounded-xl bg-white border-2 border-neutral-900 poster-shadow transition-all">
             <div className="flex items-center gap-3 overflow-hidden">
-              <Mic2 className="w-4 h-4 text-amber-400 shrink-0" />
+              <Mic2 className="w-5 h-5 text-neutral-900 shrink-0 stroke-[2.5]" />
               <div className="min-w-0">
-                <div className="text-[10px] font-cinzel tracking-wider text-amber-400/70 uppercase">
+                <div className="text-[10px] font-bebas tracking-wider text-neutral-500 uppercase">
                   Партия на сцене:
                 </div>
-                <div className="text-sm font-semibold text-neutral-100 truncate font-cinzel">
+                <div className="text-sm font-bold text-neutral-900 truncate font-oswald uppercase">
                   {activeTask.title}
                 </div>
               </div>
             </div>
             <button
               onClick={onOpenTasksTab}
-              className="text-xs text-amber-300/80 hover:text-amber-200 flex items-center gap-1 shrink-0 px-2.5 py-1 rounded-lg bg-amber-500/10 border border-amber-500/30 transition-all cursor-pointer"
+              className="text-xs font-bebas text-neutral-900 flex items-center gap-1 shrink-0 px-2.5 py-1 rounded bg-[#ffd000] border border-neutral-900 transition-all cursor-pointer font-bold tracking-wide"
             >
               <span>{activeTask.completedPomodoros}/{activeTask.estPomodoros} 👑</span>
               <ChevronRight className="w-3.5 h-3.5" />
@@ -240,36 +219,36 @@ export const TimerDisplay: React.FC<TimerDisplayProps> = ({
         ) : (
           <button
             onClick={onOpenTasksTab}
-            className="w-full flex items-center justify-center gap-2 p-3 rounded-xl border border-dashed border-amber-500/30 text-amber-300/70 hover:text-amber-200 hover:border-amber-500/60 hover:bg-amber-500/5 transition-all text-xs font-cinzel font-medium cursor-pointer"
+            className="w-full flex items-center justify-center gap-2 p-3.5 rounded-xl border-2 border-dashed border-neutral-400 bg-white text-neutral-900 hover:border-neutral-900 hover:bg-[#ffd000]/20 transition-all text-xs font-oswald font-bold uppercase cursor-pointer"
           >
-            <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+            <Sparkles className="w-4 h-4 text-[#ffd000] fill-[#ffd000]" />
             <span>+ Выбрать номер из сет-листа для этого акта</span>
           </button>
         )}
       </div>
 
-      {/* Primary Action Buttons */}
-      <div className="flex items-center justify-center gap-3 mb-5">
+      {/* Primary Action Buttons in Poster Aesthetic */}
+      <div className="flex items-center justify-center gap-3.5 mb-5">
         <button
           onClick={onReset}
           title="Сбросить акт (Esc)"
-          className="p-3.5 rounded-xl bg-neutral-900/90 border border-neutral-800 text-neutral-400 hover:text-amber-300 hover:border-amber-500/40 hover:bg-neutral-800 transition-all cursor-pointer"
+          className="p-3.5 rounded-xl bg-white border-2 border-neutral-900 text-neutral-900 hover:bg-neutral-100 poster-shadow-sm transition-all cursor-pointer active:translate-x-0.5 active:translate-y-0.5"
         >
-          <RotateCcw className="w-5 h-5" />
+          <RotateCcw className="w-5 h-5 stroke-[2.5]" />
         </button>
 
         <button
           onClick={onTogglePlay}
-          className={`flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-xl font-cinzel text-sm sm:text-base font-extrabold tracking-wider shadow-xl transition-all cursor-pointer active:scale-95 ${modeStyles.buttonBg}`}
+          className="flex items-center justify-center gap-2.5 px-9 py-3.5 rounded-xl font-bebas text-xl sm:text-2xl tracking-wider bg-[#ffd000] hover:bg-[#ffdc2e] text-neutral-950 border-3 border-neutral-950 poster-shadow transition-all cursor-pointer active:translate-x-1 active:translate-y-1 active:shadow-none"
         >
           {state === 'running' ? (
             <>
-              <Pause className="w-5 h-5 fill-current" />
+              <Pause className="w-6 h-6 fill-current" />
               <span>Пауза</span>
             </>
           ) : (
             <>
-              <Play className="w-5 h-5 fill-current" />
+              <Play className="w-6 h-6 fill-current" />
               <span>
                 {state === 'paused' ? 'Продолжить шоу' : 'Шоу начинается!'}
               </span>
@@ -280,35 +259,35 @@ export const TimerDisplay: React.FC<TimerDisplayProps> = ({
         <button
           onClick={onSkip}
           title={`Пропустить и перейти: ${modeStyles.nextLabel} (Alt+N)`}
-          className="p-3.5 rounded-xl bg-neutral-900/90 border border-neutral-800 text-neutral-400 hover:text-amber-300 hover:border-amber-500/40 hover:bg-neutral-800 transition-all cursor-pointer"
+          className="p-3.5 rounded-xl bg-white border-2 border-neutral-900 text-neutral-900 hover:bg-neutral-100 poster-shadow-sm transition-all cursor-pointer active:translate-x-0.5 active:translate-y-0.5"
         >
-          <SkipForward className="w-5 h-5" />
+          <SkipForward className="w-5 h-5 stroke-[2.5]" />
         </button>
       </div>
 
       {/* Encore Extra Minutes */}
-      <div className="flex items-center gap-2 mb-3">
+      <div className="flex items-center gap-2.5 mb-3">
         <button
           onClick={() => onAddMinutes(1)}
-          className="flex items-center gap-1 px-3 py-1 rounded-lg bg-[#140a1c] border border-amber-500/25 text-xs text-amber-300/80 hover:text-amber-200 hover:border-amber-500/50 transition-all cursor-pointer"
+          className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-white border-2 border-neutral-900 text-xs font-oswald font-bold uppercase text-neutral-900 hover:bg-[#ffd000] poster-shadow-sm transition-all cursor-pointer"
         >
-          <Plus className="w-3 h-3 text-amber-400" />
+          <Plus className="w-3.5 h-3.5 stroke-[3]" />
           <span>+1 мин на бис</span>
         </button>
         <button
           onClick={() => onAddMinutes(5)}
-          className="flex items-center gap-1 px-3 py-1 rounded-lg bg-[#140a1c] border border-amber-500/25 text-xs text-amber-300/80 hover:text-amber-200 hover:border-amber-500/50 transition-all cursor-pointer"
+          className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-white border-2 border-neutral-900 text-xs font-oswald font-bold uppercase text-neutral-900 hover:bg-[#ffd000] poster-shadow-sm transition-all cursor-pointer"
         >
-          <Plus className="w-3 h-3 text-amber-400" />
+          <Plus className="w-3.5 h-3.5 stroke-[3]" />
           <span>+5 мин на бис</span>
         </button>
       </div>
 
       {/* Shortcut hint */}
-      <div className="text-[11px] text-neutral-400/80 flex items-center gap-2 font-mono">
-        <span><kbd className="px-1.5 py-0.5 bg-neutral-900 border border-amber-500/20 rounded text-amber-300/90 font-mono">Пробел</kbd> Старт / Пауза</span>
+      <div className="text-[11px] font-mono text-neutral-600 flex items-center gap-2">
+        <span><kbd className="px-1.5 py-0.5 bg-neutral-100 border border-neutral-300 rounded text-neutral-900 font-bold">Пробел</kbd> Старт / Пауза</span>
         <span>·</span>
-        <span><kbd className="px-1.5 py-0.5 bg-neutral-900 border border-amber-500/20 rounded text-amber-300/90 font-mono">Alt+N</kbd> Следующий акт</span>
+        <span><kbd className="px-1.5 py-0.5 bg-neutral-100 border border-neutral-300 rounded text-neutral-900 font-bold">Alt+N</kbd> Пропуск</span>
       </div>
     </div>
   );
