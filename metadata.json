@@ -1,0 +1,6 @@
+{
+  "name": "The Show Must Go On — Queen Pomotimer",
+  "description": "Таймер продуктивности в грандиозном рок-стиле The Show Must Go On группы Queen. Театральная атмосфера, золотые винилы, королевские фанфары и железная дисциплина.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
