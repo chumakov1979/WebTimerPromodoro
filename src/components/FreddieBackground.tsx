@@ -3,11 +3,19 @@ import React from 'react';
 interface FreddieBackgroundProps {
   isPlaying?: boolean;
   className?: string;
+  opacity?: number;
 }
 
-export const FreddieBackground: React.FC<FreddieBackgroundProps> = ({ isPlaying = false, className = '' }) => {
+export const FreddieBackground: React.FC<FreddieBackgroundProps> = ({
+  isPlaying = false,
+  className = '',
+  opacity,
+}) => {
   return (
-    <div className={`relative w-full h-full flex flex-col items-center justify-center select-none ${className}`}>
+    <div
+      className={`relative w-full h-full flex flex-col items-center justify-center select-none ${className}`}
+      style={opacity !== undefined ? { opacity: opacity / 100 } : undefined}
+    >
       <svg
         viewBox="0 0 500 850"
         className="w-full h-full max-h-[85vh] object-contain drop-shadow-md"

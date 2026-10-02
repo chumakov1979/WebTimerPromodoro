@@ -353,12 +353,19 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#08040a] text-neutral-100 flex flex-col relative overflow-x-hidden">
-      {/* Freddie Mercury Stage Backdrop */}
-      <FreddieBackground isPlaying={state === 'running'} />
+    <div className="min-h-screen bg-[#faf8f5] text-neutral-900 flex flex-col relative overflow-x-hidden">
+      {/* Freddie Mercury Stage Backdrop Watermark (Light Theme) */}
+      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden flex items-center justify-center opacity-[0.08] transition-opacity duration-700">
+        <FreddieBackground isPlaying={state === 'running'} opacity={100} />
+      </div>
 
-      {/* Overhead Stage Spotlight Layer */}
-      <div className="fixed top-0 left-1/2 -translate-x-1/2 w-[800px] h-[450px] stage-spotlight pointer-events-none blur-3xl opacity-70" />
+      {/* Subtle Warm Stage Spotlight Halo on Light Background */}
+      <div
+        className="fixed top-0 left-1/2 -translate-x-1/2 w-[900px] h-[550px] pointer-events-none blur-3xl opacity-50 transition-opacity duration-1000"
+        style={{
+          background: 'radial-gradient(circle, rgba(255, 208, 0, 0.25) 0%, rgba(254, 240, 138, 0.12) 40%, transparent 70%)',
+        }}
+      />
 
       {/* Top Header */}
       <Navbar
@@ -401,14 +408,14 @@ export default function App() {
             />
 
             {/* Quick Setlist preview below timer */}
-            <div className="mt-8 pt-8 border-t border-amber-500/20 max-w-xl mx-auto">
+            <div className="mt-8 pt-8 border-t-2 border-neutral-900/10 max-w-xl mx-auto">
               <div className="flex items-center justify-between mb-3">
-                <span className="text-[11px] font-cinzel font-bold uppercase tracking-[0.2em] text-amber-400/80">
+                <span className="text-xs font-oswald font-bold uppercase tracking-wider text-neutral-600">
                   Партии сегодняшней программы
                 </span>
                 <button
                   onClick={() => setActiveView('tasks')}
-                  className="text-xs font-cinzel text-amber-300 hover:text-amber-100 font-bold transition-colors"
+                  className="text-xs font-oswald text-neutral-900 hover:text-[#e11d48] font-bold uppercase transition-colors"
                 >
                   Весь сет-лист ({tasks.length}) →
                 </button>
